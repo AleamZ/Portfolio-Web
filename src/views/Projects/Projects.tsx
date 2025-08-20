@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProjectDemo from '../../components/ProjectDemo/ProjectDemo';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { getText } from '../../i18n';
 import './Projects.scss';
 
 interface Project {
@@ -17,15 +19,16 @@ interface Project {
 }
 
 const Projects: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const { language } = useLanguage();
+  const [selectedKey, setSelectedKey] = useState<'all' | 'frontend' | 'backend' | 'fullstack'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Web Store Project',
-      description: 'A full-stack e-commerce application developed with ReactJS and Vite for frontend, Node.js with Express and TypeScript for backend. Features include product management, shopping cart, and user authentication.',
+      title: getText('projects.webStore.title', language),
+      description: getText('projects.webStore.description', language),
       technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'Vite', 'Ant Design'],
       image: '🛒',
       github: '',
@@ -37,8 +40,8 @@ const Projects: React.FC = () => {
     },
     {
       id: 2,
-      title: 'Sales Management Web Project',
-      description: 'A comprehensive sales management system built with ReactJS and Vite, featuring sales tracking, customer management, and reporting capabilities with optimized data handling using React Query.',
+      title: getText('projects.salesManagement.title', language),
+      description: getText('projects.salesManagement.description', language),
       technologies: ['React', 'TypeScript', 'Vite', 'Ant Design', 'React Query'],
       image: '📊',
       github: 'https://github.com/AleamZ/Sales-Management',
@@ -48,8 +51,8 @@ const Projects: React.FC = () => {
     },
     {
       id: 3,
-      title: 'CI Research Company Website',
-      description: 'Developed a web application using ASP.NET for full-stack integration, managing over 5 million records of Vietnamese enterprise data with optimized performance and modern UI/UX design.',
+      title: getText('projects.ciResearch.title', language),
+      description: getText('projects.ciResearch.description', language),
       technologies: ['ASP.NET', 'C#', 'Big Data', 'MySQL', 'Performance Optimization'],
       image: '🏢',
       github: '',
@@ -61,19 +64,21 @@ const Projects: React.FC = () => {
     },
     {
       id: 4,
-      title: 'Amazing Tech Company Interface',
-      description: 'Designed and developed the initial "First Page" interface using React and JavaScript, focusing on modular component structure and responsive design with SCSS and Ant Design integration.',
+      title: getText('projects.amazingTech.title', language),
+      description: getText('projects.amazingTech.description', language),
       technologies: ['React', 'JavaScript', 'SCSS', 'Ant Design', 'API Integration'],
       image: '💻',
-      github: '#',
-      live: '#',
+      github: '',
+      live: 'https://demo-noah-quiz.vercel.app/',
       category: 'Frontend',
-      demoUrl: 'https://amazing-tech-demo.vercel.app'
+      demoUrl: 'https://demo-noah-quiz.vercel.app/',
+      sourcePrivate: true,
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://demo-noah-quiz.vercel.app/'
     },
     {
       id: 5,
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website built with React and TypeScript, featuring smooth animations and a unique coder theme with binary background effects.',
+      title: getText('projects.portfolio.title', language),
+      description: getText('projects.portfolio.description', language),
       technologies: ['React', 'TypeScript', 'SCSS', 'Vite'],
       image: '💼',
       github: 'https://github.com/AleamZ/Portfolio-Web',
@@ -81,33 +86,67 @@ const Projects: React.FC = () => {
       category: 'Frontend',
       demoUrl: 'https://www.aleamz.info.vn/',
       previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://www.aleamz.info.vn/'
+    },
+    {
+      id: 6,
+      title: getText('projects.maxius.title', language),
+      description: getText('projects.maxius.description', language),
+      technologies: ['React', 'TypeScript', 'Vite', 'Ant Design'],
+      image: '🧪',
+      github: 'https://github.com/AleamZ/TOAST-TEST-JOB',
+      live: 'https://toast-test-job.vercel.app/',
+      category: 'Frontend',
+      demoUrl: 'https://toast-test-job.vercel.app/'
+    },
+    {
+      id: 7,
+      title: getText('projects.amanotes.title', language),
+      description: getText('projects.amanotes.description', language),
+      technologies: ['React', 'TypeScript', 'Vite', 'Ant Design', 'React Query'],
+      image: '🎵',
+      github: 'https://github.com/AleamZ/Amanotes-Test-Job',
+      live: 'https://amanotes-test-job.vercel.app/',
+      category: 'Frontend',
+      demoUrl: 'https://amanotes-test-job.vercel.app/'
     }
   ];
 
-  const categories = ['All', 'Frontend', 'Backend', 'Full-Stack'];
+  const categories = [
+    { key: 'all' as const, label: getText('projects.filter.all', language) },
+    { key: 'frontend' as const, label: getText('projects.filter.frontend', language) },
+    { key: 'backend' as const, label: getText('projects.filter.backend', language) },
+    { key: 'fullstack' as const, label: getText('projects.filter.fullstack', language) }
+  ];
 
-  const filteredProjects = selectedCategory === 'All'
+  const toProjectCategory = (key: 'all' | 'frontend' | 'backend' | 'fullstack'): 'Frontend' | 'Backend' | 'Full-Stack' | 'All' => {
+    if (key === 'frontend') return 'Frontend';
+    if (key === 'backend') return 'Backend';
+    if (key === 'fullstack') return 'Full-Stack';
+    return 'All';
+  };
+
+  const filteredProjects = selectedKey === 'all'
     ? projects
-    : projects.filter(project => project.category === selectedCategory);
+    : projects.filter(project => project.category === toProjectCategory(selectedKey));
 
   useEffect(() => {
-    setActiveIndex(0);
-  }, [selectedCategory]);
+    setActiveIndex(Math.floor(filteredProjects.length / 2));
+  }, [selectedKey, filteredProjects.length]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
-        setActiveIndex(prev => Math.min(prev + 1, filteredProjects.length - 1));
+        setActiveIndex(prev => (prev + 1) % filteredProjects.length);
       } else if (e.key === 'ArrowLeft') {
-        setActiveIndex(prev => Math.max(prev - 1, 0));
+        setActiveIndex(prev => (prev - 1 + filteredProjects.length) % filteredProjects.length);
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [filteredProjects.length]);
 
-  const goPrev = () => setActiveIndex(prev => Math.max(prev - 1, 0));
-  const goNext = () => setActiveIndex(prev => Math.min(prev + 1, filteredProjects.length - 1));
+  const goPrev = () => setActiveIndex(prev => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+  const goNext = () => setActiveIndex(prev => (prev + 1) % filteredProjects.length);
 
   const CardThumb: React.FC<{ url?: string; fallbackImg?: string }> = ({ url, fallbackImg }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -116,7 +155,7 @@ const Projects: React.FC = () => {
     const DESKTOP_W = 1280;
     const DESKTOP_H = 720;
     const [loaded, setLoaded] = useState(false);
-    const [fallback] = useState(false);
+    const [fallback, setFallback] = useState(false);
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -162,13 +201,13 @@ const Projects: React.FC = () => {
               onLoad={() => setLoaded(true)}
             />
             {!loaded && (
-              <div className="projects__thumb-placeholder">Loading preview…</div>
+              <div className="projects__thumb-placeholder">{getText('projects.preview.loading', language)}</div>
             )}
           </div>
         ) : fallbackImg ? (
           <img src={fallbackImg} alt="Site preview" className="projects__thumb-image" />
         ) : (
-          <div className="projects__thumb-placeholder">Preview not available</div>
+          <div className="projects__thumb-placeholder">{getText('projects.preview.unavailable', language)}</div>
         )}
       </div>
     );
@@ -180,32 +219,35 @@ const Projects: React.FC = () => {
         <div className="projects__header">
           <h2 className="projects__title">
             <span className="projects__title-prefix">&gt; </span>
-            My Projects
+            {getText('projects.title', language)}
           </h2>
           <p className="projects__subtitle">
-            A showcase of my work and technical expertise
+            {getText('projects.subtitle', language)}
           </p>
         </div>
 
         <div className="projects__filters">
-          {categories.map(category => (
+          {categories.map(({ key, label }) => (
             <button
-              key={category}
-              className={`projects__filter-btn ${selectedCategory === category ? 'projects__filter-btn--active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
+              key={key}
+              className={`projects__filter-btn ${selectedKey === key ? 'projects__filter-btn--active' : ''}`}
+              onClick={() => setSelectedKey(key)}
             >
-              {category}
+              {label}
             </button>
           ))}
         </div>
 
         <div className="projects__carousel">
-          <button className="projects__nav projects__nav--prev" onClick={goPrev} aria-label="Previous" disabled={activeIndex === 0}>
+          <button className="projects__nav projects__nav--prev" onClick={goPrev} aria-label={getText('common.prev', language)}>
             ‹
           </button>
           <div className="projects__carousel-track">
             {filteredProjects.map((project, index) => {
-              const offset = index - activeIndex;
+              const n = filteredProjects.length || 1;
+              let offset = index - activeIndex;
+              if (offset > n / 2) offset -= n;
+              if (offset < -n / 2) offset += n;
               const translateX = offset * 320;
               const rotateY = -25 * offset;
               const translateZ = -120 * Math.abs(offset);
@@ -233,8 +275,8 @@ const Projects: React.FC = () => {
                         {!project.sourcePrivate && project.github && (
                           <a href={project.github} className="projects__meta-btn">GitHub</a>
                         )}
-                        <a href={project.live} className="projects__meta-btn">Live</a>
-                        <button className="projects__meta-btn projects__meta-btn--primary" onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}>View</button>
+                        <a href={project.live} className="projects__meta-btn">{getText('projects.view.live', language)}</a>
+                        <button className="projects__meta-btn projects__meta-btn--primary" onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}>{getText('common.open', language)}</button>
                       </div>
                     </div>
                   </div>
@@ -242,17 +284,17 @@ const Projects: React.FC = () => {
               );
             })}
           </div>
-          <button className="projects__nav projects__nav--next" onClick={goNext} aria-label="Next" disabled={activeIndex === filteredProjects.length - 1}>
+          <button className="projects__nav projects__nav--next" onClick={goNext} aria-label={getText('common.next', language)}>
             ›
           </button>
         </div>
 
         <div className="projects__cta">
           <p className="projects__cta-text">
-            Interested in working together? Let's discuss your project!
+            {getText('projects.cta.text', language)}
           </p>
           <a href="#contact" className="projects__cta-button">
-            Get In Touch
+            {getText('contact.form.send', language)}
           </a>
         </div>
       </div>

@@ -4,21 +4,23 @@ import Home from './views/Home/Home';
 import Skills from './views/Skills/Skills';
 import Projects from './views/Projects/Projects';
 import Contact from './views/Contact/Contact';
+import { LanguageProvider } from './contexts/LanguageContext';
 import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <BinaryBackground />
-      <Header />
-      <main className="App__main">
-        <Home />
-        <Projects />
-
-        <Skills />
-        <Contact />
-      </main>
-    </div>
+    <LanguageProvider>
+      <div className="App">
+        <BinaryBackground />
+        <Header />
+        <main className="App__main">
+          <Home />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+      </div>
+    </LanguageProvider>
   );
 }
 

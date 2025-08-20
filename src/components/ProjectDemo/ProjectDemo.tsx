@@ -42,6 +42,8 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [scale, setScale] = useState(1);
     const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    const [iframeLoaded, setIframeLoaded] = useState<boolean>(false);
+    const [showIframeFallback, setShowIframeFallback] = useState<boolean>(false);
     const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
@@ -80,7 +82,15 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
         };
     }, []);
 
-    // Note: if a site blocks iframe embedding, the preview area will remain blank; users can open Live Demo via the button below.
+    // Show fallback if iframe does not load (e.g., site blocks embedding)
+    useEffect(() => {
+        setIframeLoaded(false);
+        setShowIframeFallback(false);
+        const timer = window.setTimeout(() => {
+            if (!iframeLoaded) setShowIframeFallback(true);
+        }, 3000);
+        return () => window.clearTimeout(timer);
+    }, [project.demoUrl, project.live]);
 
     // ---------- GitHub integration ----------
     const parseGithubRepo = (url: string): { owner: string; repo: string } | null => {
@@ -368,11 +378,19 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
                                             className="project-demo__iframe"
                                             frameBorder="0"
                                             ref={iframeRef}
+                                            onLoad={() => setIframeLoaded(true)}
                                             style={{
                                                 width: `${DESKTOP_PREVIEW_WIDTH}px`,
                                                 height: `${DESKTOP_PREVIEW_HEIGHT}px`
                                             }}
                                         />
+                                        {showIframeFallback && (
+                                            <div className="project-demo__demo-placeholder" style={{ position: 'absolute', inset: 0 }}>
+                                                <div className="project-demo__demo-placeholder-icon">🔓</div>
+                                                <p>Site may block embedding in an iframe.</p>
+                                                <a href={demoSrc} target="_blank" rel="noopener noreferrer" className="project-demo__demo-link">Open Live Demo</a>
+                                            </div>
+                                        )}
                                     </div>) : (
                                     <div className="project-demo__demo-placeholder">
                                         <div className="project-demo__demo-placeholder-icon">🚀</div>

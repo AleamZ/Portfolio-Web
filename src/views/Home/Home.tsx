@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { getText } from '../../i18n';
 import './Home.scss';
 
 const Home: React.FC = () => {
+  const { language } = useLanguage();
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -41,7 +44,7 @@ const Home: React.FC = () => {
       <div className="home__container">
         <div className="home__content">
           <div className="home__greeting">
-            <span className="home__greeting-text">Hello World!</span>
+            <span className="home__greeting-text">{getText('home.greeting', language)}</span>
             <div className="home__greeting-binary">01001000 01100101 01101100 01101100 01101111</div>
           </div>
 
@@ -52,38 +55,36 @@ const Home: React.FC = () => {
           </h1>
 
           <p className="home__subtitle">
-            Passionate Fullstack Developer with expertise in React and modern web technologies
+            {getText('home.subtitle', language)}
           </p>
 
           <div className="home__description">
             <p>
-              I create digital experiences that combine cutting-edge technology with
-              beautiful design. Specializing in React, TypeScript, Node.js, and ASP.NET development.
-              Graduate from University of Greenwich with Bachelor of Information Technology.
+              {getText('home.description', language)}
             </p>
           </div>
 
           <div className="home__stats">
             <div className="home__stat">
               <span className="home__stat-number">1</span>
-              <span className="home__stat-label">Years Experience</span>
+              <span className="home__stat-label">{getText('home.stats.experience', language)}</span>
             </div>
             <div className="home__stat">
               <span className="home__stat-number">3</span>
-              <span className="home__stat-label">Projects Completed</span>
+              <span className="home__stat-label">{getText('home.stats.projects', language)}</span>
             </div>
             <div className="home__stat">
               <span className="home__stat-number">100%</span>
-              <span className="home__stat-label">Client Satisfaction</span>
+              <span className="home__stat-label">{getText('home.stats.satisfaction', language)}</span>
             </div>
           </div>
 
           <div className="home__cta">
             <a href="#projects" className="home__cta-button home__cta-button--primary">
-              View My Work
+              {getText('home.cta.viewWork', language)}
             </a>
             <a href="#contact" className="home__cta-button home__cta-button--secondary">
-              Get In Touch
+              {getText('home.cta.getInTouch', language)}
             </a>
           </div>
         </div>
@@ -105,16 +106,16 @@ const Home: React.FC = () => {
   }
   
   code() {
-    return "Building amazing apps!";
+    return "${getText('home.code.building', language)}";
   }
   
   learn() {
-    return "Always learning new tech!";
+    return "${getText('home.code.learning', language)}";
   }
 }
 
 const me = new Developer();
-me.code(); // "Building amazing apps!"`}</code></pre>
+me.code(); // "${getText('home.code.building', language)}"`}</code></pre>
             </div>
           </div>
         </div>

@@ -120,6 +120,16 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
   &__menu-toggle {
     display: none;
     flex-direction: column;
@@ -146,9 +156,11 @@
         &:nth-child(1) {
           transform: rotate(45deg) translate(6px, 6px);
         }
+
         &:nth-child(2) {
           opacity: 0;
         }
+
         &:nth-child(3) {
           transform: rotate(-45deg) translate(6px, -6px);
         }
@@ -161,6 +173,7 @@
   0% {
     text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
   }
+
   100% {
     text-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
   }

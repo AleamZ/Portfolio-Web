@@ -1,0 +1,116 @@
+.language-switcher {
+  position: relative;
+  display: inline-block;
+  z-index: 1000;
+
+  &__current {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid #00ff41;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: #00ff41;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+
+    &:hover {
+      background: rgba(0, 40, 0, 0.9);
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    }
+  }
+
+  &__flag {
+    font-size: 1.2rem;
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: rgba(0, 20, 0, 0.95);
+    border: 1px solid #00ff41;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+
+    .language-switcher:hover & {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    color: #00ff41;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    text-align: left;
+
+    &:hover {
+      background: rgba(0, 255, 65, 0.1);
+      color: #ffffff;
+    }
+
+    &:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+
+    &--active {
+      background: rgba(0, 255, 65, 0.2);
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
+
+  &__flag {
+    font-size: 1.1rem;
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  // Mobile responsive
+  @media (max-width: 768px) {
+    &__current {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    &__dropdown {
+      min-width: 140px;
+    }
+
+    &__option {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+}
