@@ -262,22 +262,90 @@ const Skills: React.FC = () => {
         <div className="skills__experience">
           <h3 className="skills__experience-title">{getText('skills.hobbies.title', language)}</h3>
           <div className="skills__experience-grid">
-            <div className="skills__experience-item">
+            <div 
+              className="skills__experience-item"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotateX = (0.5 - y) * 35;
+                const rotateY = (x - 0.5) * 35;
+                e.currentTarget.style.setProperty('--rotate-x', `${rotateX}deg`);
+                e.currentTarget.style.setProperty('--rotate-y', `${rotateY}deg`);
+                e.currentTarget.style.setProperty('--translate-z', '40px');
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty('--rotate-x', '0deg');
+                e.currentTarget.style.setProperty('--rotate-y', '0deg');
+                e.currentTarget.style.setProperty('--translate-z', '0px');
+              }}
+            >
               <div className="skills__experience-icon">🏍️</div>
               <h4>{getText('skills.hobbies.travel', language)}</h4>
               <p>{getText('skills.hobbies.travel.desc', language)}</p>
             </div>
-            <div className="skills__experience-item">
+            <div 
+              className="skills__experience-item"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotateX = (0.5 - y) * 35;
+                const rotateY = (x - 0.5) * 35;
+                e.currentTarget.style.setProperty('--rotate-x', `${rotateX}deg`);
+                e.currentTarget.style.setProperty('--rotate-y', `${rotateY}deg`);
+                e.currentTarget.style.setProperty('--translate-z', '40px');
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty('--rotate-x', '0deg');
+                e.currentTarget.style.setProperty('--rotate-y', '0deg');
+                e.currentTarget.style.setProperty('--translate-z', '0px');
+              }}
+            >
               <div className="skills__experience-icon">⚽</div>
               <h4>{getText('skills.hobbies.football', language)}</h4>
               <p>{getText('skills.hobbies.football.desc', language)}</p>
             </div>
-            <div className="skills__experience-item">
+            <div 
+              className="skills__experience-item"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotateX = (0.5 - y) * 35;
+                const rotateY = (x - 0.5) * 35;
+                e.currentTarget.style.setProperty('--rotate-x', `${rotateX}deg`);
+                e.currentTarget.style.setProperty('--rotate-y', `${rotateY}deg`);
+                e.currentTarget.style.setProperty('--translate-z', '40px');
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty('--rotate-x', '0deg');
+                e.currentTarget.style.setProperty('--rotate-y', '0deg');
+                e.currentTarget.style.setProperty('--translate-z', '0px');
+              }}
+            >
               <div className="skills__experience-icon">🎮</div>
               <h4>{getText('skills.hobbies.gaming', language)}</h4>
               <p>{getText('skills.hobbies.gaming.desc', language)}</p>
             </div>
-            <div className="skills__experience-item">
+            <div 
+              className="skills__experience-item"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotateY = (x - 0.5) * 35;
+                const rotateX = (0.5 - y) * 35;
+                e.currentTarget.style.setProperty('--rotate-x', `${rotateX}deg`);
+                e.currentTarget.style.setProperty('--rotate-y', `${rotateY}deg`);
+                e.currentTarget.style.setProperty('--translate-z', '40px');
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty('--rotate-x', '0deg');
+                e.currentTarget.style.setProperty('--rotate-y', '0deg');
+                e.currentTarget.style.setProperty('--translate-z', '0px');
+              }}
+            >
               <div className="skills__experience-icon">🌾</div>
               <h4>{getText('skills.hobbies.farming', language)}</h4>
               <p>{getText('skills.hobbies.farming.desc', language)}</p>
