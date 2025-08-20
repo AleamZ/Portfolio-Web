@@ -47,7 +47,8 @@ const Projects: React.FC = () => {
       github: 'https://github.com/AleamZ/Sales-Management',
       live: 'https://sales-management-henna.vercel.app',
       category: 'Full-Stack',
-      demoUrl: 'https://sales-management-henna.vercel.app'
+      demoUrl: 'https://sales-management-henna.vercel.app',
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://sales-management-henna.vercel.app'
     },
     {
       id: 3,
@@ -96,7 +97,8 @@ const Projects: React.FC = () => {
       github: 'https://github.com/AleamZ/TOAST-TEST-JOB',
       live: 'https://toast-test-job.vercel.app/',
       category: 'Frontend',
-      demoUrl: 'https://toast-test-job.vercel.app/'
+      demoUrl: 'https://toast-test-job.vercel.app/',
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://toast-test-job.vercel.app/'
     },
     {
       id: 7,
@@ -107,7 +109,8 @@ const Projects: React.FC = () => {
       github: 'https://github.com/AleamZ/Amanotes-Test-Job',
       live: 'https://amanotes-test-job.vercel.app/',
       category: 'Frontend',
-      demoUrl: 'https://amanotes-test-job.vercel.app/'
+      demoUrl: 'https://amanotes-test-job.vercel.app/',
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://amanotes-test-job.vercel.app/'
     }
   ];
 
@@ -181,7 +184,7 @@ const Projects: React.FC = () => {
 
     return (
       <div className="projects__thumb-container" ref={containerRef}>
-        {url && !loaded ? (
+        {url ? (
           <div
             className="projects__thumb-wrapper"
             style={{
