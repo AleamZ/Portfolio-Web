@@ -12,6 +12,8 @@ interface Project {
   live: string;
   category: string;
   demoUrl?: string;
+  sourcePrivate?: boolean;
+  previewImage?: string;
 }
 
 const Projects: React.FC = () => {
@@ -26,10 +28,12 @@ const Projects: React.FC = () => {
       description: 'A full-stack e-commerce application developed with ReactJS and Vite for frontend, Node.js with Express and TypeScript for backend. Features include product management, shopping cart, and user authentication.',
       technologies: ['React', 'TypeScript', 'Node.js', 'Express', 'Vite', 'Ant Design'],
       image: '🛒',
-      github: '#',
-      live: '#',
+      github: '',
+      live: 'https://www.bluetoothmobile.vn',
       category: 'Full-Stack',
-      demoUrl: 'https://example-store.vercel.app'
+      demoUrl: 'https://www.bluetoothmobile.vn',
+      sourcePrivate: true,
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://www.bluetoothmobile.vn'
     },
     {
       id: 2,
@@ -48,10 +52,12 @@ const Projects: React.FC = () => {
       description: 'Developed a web application using ASP.NET for full-stack integration, managing over 5 million records of Vietnamese enterprise data with optimized performance and modern UI/UX design.',
       technologies: ['ASP.NET', 'C#', 'Big Data', 'MySQL', 'Performance Optimization'],
       image: '🏢',
-      github: '#',
-      live: '#',
+      github: '',
+      live: 'https://ciresearch.vn/dn',
       category: 'Full-Stack',
-      demoUrl: 'https://ci-research-demo.azurewebsites.net'
+      demoUrl: 'https://ciresearch.vn/dn',
+      sourcePrivate: true,
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://ciresearch.vn/dn'
     },
     {
       id: 4,
@@ -70,10 +76,11 @@ const Projects: React.FC = () => {
       description: 'A modern, responsive portfolio website built with React and TypeScript, featuring smooth animations and a unique coder theme with binary background effects.',
       technologies: ['React', 'TypeScript', 'SCSS', 'Vite'],
       image: '💼',
-      github: '#',
-      live: '#',
+      github: 'https://github.com/AleamZ/Portfolio-Web',
+      live: 'https://www.aleamz.info.vn/',
       category: 'Frontend',
-      demoUrl: 'https://portfolio-demo.vercel.app'
+      demoUrl: 'https://www.aleamz.info.vn/',
+      previewImage: 'https://image.thum.io/get/width/1280/crop/720/https://www.aleamz.info.vn/'
     }
   ];
 
@@ -102,12 +109,14 @@ const Projects: React.FC = () => {
   const goPrev = () => setActiveIndex(prev => Math.max(prev - 1, 0));
   const goNext = () => setActiveIndex(prev => Math.min(prev + 1, filteredProjects.length - 1));
 
-  const CardThumb: React.FC<{ url?: string }> = ({ url }) => {
+  const CardThumb: React.FC<{ url?: string; fallbackImg?: string }> = ({ url, fallbackImg }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [scale, setScale] = useState(1);
     const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
     const DESKTOP_W = 1280;
     const DESKTOP_H = 720;
+    const [loaded, setLoaded] = useState(false);
+    const [fallback] = useState(false);
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -134,7 +143,7 @@ const Projects: React.FC = () => {
 
     return (
       <div className="projects__thumb-container" ref={containerRef}>
-        {url ? (
+        {url && !fallback ? (
           <div
             className="projects__thumb-wrapper"
             style={{
@@ -150,8 +159,14 @@ const Projects: React.FC = () => {
               className="projects__thumb-iframe"
               style={{ width: `${DESKTOP_W}px`, height: `${DESKTOP_H}px` }}
               loading="lazy"
+              onLoad={() => setLoaded(true)}
             />
+            {!loaded && (
+              <div className="projects__thumb-placeholder">Loading preview…</div>
+            )}
           </div>
+        ) : fallbackImg ? (
+          <img src={fallbackImg} alt="Site preview" className="projects__thumb-image" />
         ) : (
           <div className="projects__thumb-placeholder">Preview not available</div>
         )}
@@ -210,12 +225,14 @@ const Projects: React.FC = () => {
                 >
                   <div className="projects__card3d-inner">
                     <div className="projects__thumb">
-                      <CardThumb url={project.demoUrl || project.live} />
+                      <CardThumb url={project.demoUrl || project.live} fallbackImg={project.previewImage} />
                     </div>
                     <div className="projects__meta">
                       <h3 className="projects__card-title">{project.title}</h3>
                       <div className="projects__meta-actions">
-                        <a href={project.github} className="projects__meta-btn">GitHub</a>
+                        {!project.sourcePrivate && project.github && (
+                          <a href={project.github} className="projects__meta-btn">GitHub</a>
+                        )}
                         <a href={project.live} className="projects__meta-btn">Live</a>
                         <button className="projects__meta-btn projects__meta-btn--primary" onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}>View</button>
                       </div>

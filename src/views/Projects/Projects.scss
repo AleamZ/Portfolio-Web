@@ -164,6 +164,15 @@
     color: #00ff41;
   }
 
+  &__thumb-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+  }
+
   &__meta {
     display: flex;
     align-items: center;

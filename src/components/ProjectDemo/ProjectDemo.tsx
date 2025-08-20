@@ -21,6 +21,7 @@ interface ProjectDemoProps {
         live: string;
         category: string;
         demoUrl?: string;
+        sourcePrivate?: boolean;
         fileStructure?: FileNode[];
     };
     onClose: () => void;
@@ -41,6 +42,7 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [scale, setScale] = useState(1);
     const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+    const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -77,6 +79,8 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
             window.removeEventListener('resize', updateScale);
         };
     }, []);
+
+    // Note: if a site blocks iframe embedding, the preview area will remain blank; users can open Live Demo via the button below.
 
     // ---------- GitHub integration ----------
     const parseGithubRepo = (url: string): { owner: string; repo: string } | null => {
@@ -347,83 +351,96 @@ const ProjectDemo: React.FC<ProjectDemoProps> = ({ project, onClose }) => {
                     <div className="project-demo__demo-section">
                         <h3 className="project-demo__section-title">Live Demo</h3>
                         <div className="project-demo__iframe-container" ref={containerRef}>
-                            {project.demoUrl ? (
-                                <div
-                                    className="project-demo__iframe-wrapper"
-                                    style={{
-                                        width: `${DESKTOP_PREVIEW_WIDTH}px`,
-                                        height: `${DESKTOP_PREVIEW_HEIGHT}px`,
-                                        transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
-                                        transformOrigin: 'top left'
-                                    }}
-                                >
-                                    <iframe
-                                        src={project.demoUrl}
-                                        title={`${project.title} Demo`}
-                                        className="project-demo__iframe"
-                                        frameBorder="0"
+                            {(() => {
+                                const demoSrc = project.demoUrl || project.live; return demoSrc ? (
+                                    <div
+                                        className="project-demo__iframe-wrapper"
                                         style={{
                                             width: `${DESKTOP_PREVIEW_WIDTH}px`,
-                                            height: `${DESKTOP_PREVIEW_HEIGHT}px`
+                                            height: `${DESKTOP_PREVIEW_HEIGHT}px`,
+                                            transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
+                                            transformOrigin: 'top left'
                                         }}
-                                    />
-                                </div>
-                            ) : (
-                                <div className="project-demo__demo-placeholder">
-                                    <div className="project-demo__demo-placeholder-icon">🚀</div>
-                                    <p>Demo URL not available</p>
-                                    <p>Check the live link for demo</p>
-                                </div>
-                            )}
+                                    >
+                                        <iframe
+                                            src={demoSrc}
+                                            title={`${project.title} Demo`}
+                                            className="project-demo__iframe"
+                                            frameBorder="0"
+                                            ref={iframeRef}
+                                            style={{
+                                                width: `${DESKTOP_PREVIEW_WIDTH}px`,
+                                                height: `${DESKTOP_PREVIEW_HEIGHT}px`
+                                            }}
+                                        />
+                                    </div>) : (
+                                    <div className="project-demo__demo-placeholder">
+                                        <div className="project-demo__demo-placeholder-icon">🚀</div>
+                                        <p>Demo URL not available</p>
+                                        <p>Check the live link for demo</p>
+                                    </div>);
+                            })()}
                         </div>
                         <div className="project-demo__demo-actions">
                             <a href={project.live} target="_blank" rel="noopener noreferrer" className="project-demo__demo-link">
                                 🌐 Open Live Demo
                             </a>
-                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-demo__demo-link">
-                                🐙 View on GitHub
-                            </a>
+                            {project.sourcePrivate ? (
+                                <span className="project-demo__file-loading">🔒 Source code is private for this project</span>
+                            ) : (
+                                project.github && (
+                                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-demo__demo-link">
+                                        🐙 View on GitHub
+                                    </a>
+                                )
+                            )}
                         </div>
                     </div>
 
                     <div className="project-demo__code-section">
                         <h3 className="project-demo__section-title">Source Code</h3>
-                        <div className="project-demo__code-container">
-                            <div className="project-demo__file-tree">
-                                <h4 className="project-demo__file-tree-title">📁 Project Structure</h4>
-                                <div className="project-demo__file-tree-content">
-                                    {isLoadingTree ? (
-                                        <div className="project-demo__file-loading">Loading repository...</div>
-                                    ) : fileStructure ? (
-                                        renderFileTree(fileStructure)
-                                    ) : (
-                                        <div className="project-demo__file-loading">Using fallback structure{loadError ? ` - ${loadError}` : ''}</div>
-                                    )}
-                                </div>
+                        {project.sourcePrivate ? (
+                            <div className="project-demo__file-loading" style={{ padding: '1rem' }}>
+                                🔒 This project's source code is private and cannot be displayed.
                             </div>
-
-                            <div className="project-demo__code-viewer">
-                                <h4 className="project-demo__code-viewer-title">
-                                    {selectedFile ? `📄 ${selectedFile.name}` : 'Select a file to view code'}
-                                </h4>
-                                <div className="project-demo__code-content">
-                                    {selectedFile ? (
-                                        loadingFilePath === selectedFile.path ? (
-                                            <div className="project-demo__file-loading">Loading file...</div>
+                        ) : (
+                            <div className="project-demo__code-container">
+                                <div className="project-demo__file-tree">
+                                    <h4 className="project-demo__file-tree-title">📁 Project Structure</h4>
+                                    <div className="project-demo__file-tree-content">
+                                        {isLoadingTree ? (
+                                            <div className="project-demo__file-loading">Loading repository...</div>
+                                        ) : fileStructure ? (
+                                            renderFileTree(fileStructure)
                                         ) : (
-                                            <pre className="project-demo__code-text">
-                                                <code>{selectedFile.content || '// File content not available'}</code>
-                                            </pre>
-                                        )
-                                    ) : (
-                                        <div className="project-demo__code-placeholder">
-                                            <div className="project-demo__code-placeholder-icon">💻</div>
-                                            <p>Click on a file to view its source code</p>
-                                        </div>
-                                    )}
+                                            <div className="project-demo__file-loading">Using fallback structure{loadError ? ` - ${loadError}` : ''}</div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="project-demo__code-viewer">
+                                    <h4 className="project-demo__code-viewer-title">
+                                        {selectedFile ? `📄 ${selectedFile.name}` : 'Select a file to view code'}
+                                    </h4>
+                                    <div className="project-demo__code-content">
+                                        {selectedFile ? (
+                                            loadingFilePath === selectedFile.path ? (
+                                                <div className="project-demo__file-loading">Loading file...</div>
+                                            ) : (
+                                                <pre className="project-demo__code-text">
+                                                    <code>{selectedFile.content || '// File content not available'}</code>
+                                                </pre>
+                                            )
+                                        ) : (
+                                            <div className="project-demo__code-placeholder">
+                                                <div className="project-demo__code-placeholder-icon">💻</div>
+                                                <p>Click on a file to view its source code</p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
 
