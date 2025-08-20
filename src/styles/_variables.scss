@@ -1,0 +1,85 @@
+// Color Variables
+$primary-dark: #0a0a0a;
+$secondary-dark: #1a1a1a;
+$tertiary-dark: #2a2a2a;
+$bg-primary: #0a0a0a;
+$bg-secondary: #1a1a1a;
+$bg-card: rgba(26, 26, 26, 0.8);
+
+// Text Colors
+$text-primary: #ffffff;
+$text-secondary: #cccccc;
+$text-green: #00ff41;
+
+// Accent Colors
+$accent-green: #00ff41;
+$accent-green-light: #33ff66;
+$accent-green-glow: rgba(0, 255, 65, 0.3);
+
+// Gradients
+$gradient-green: linear-gradient(135deg, #00ff41 0%, #33ff66 100%);
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-xxl: 4rem;
+
+// Typography
+$font-family-primary: 'Fira Code', monospace;
+$font-family-secondary: 'Inter', sans-serif;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-xxl: 1.5rem;
+$font-size-title: 2rem;
+$font-size-hero: 3rem;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Z-index
+$z-background: -1;
+$z-content: 1;
+$z-header: 100;
+$z-modal: 1000;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$large-desktop: 1200px;
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+$shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.25);
+
+// Border Colors
+$border-primary: rgba(255, 255, 255, 0.1);
+$border-green: $accent-green;
+
+// Text Colors
+$text-muted: rgba(255, 255, 255, 0.6);
+
+// Shadow Colors
+$shadow-green: 0 0 20px rgba(0, 255, 65, 0.3);

@@ -1,0 +1,250 @@
+.contact {
+  min-height: 100vh;
+  padding: 120px 2rem 4rem;
+  background: linear-gradient(135deg, #001400 0%, #002200 50%, #001400 100%);
+  position: relative;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .contact__title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-family: 'Courier New', monospace;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+
+      &-prefix {
+        color: #00ff41;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .contact__subtitle {
+      font-size: 1.25rem;
+      color: #00cc33;
+      font-family: 'Courier New', monospace;
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__info-item {
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid #00ff41;
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+      border-color: #00cc33;
+    }
+  }
+
+  &__info-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  &__info-content {
+    h3 {
+      color: #00ff41;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+
+    p {
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  &__info-link {
+    color: #00ff41;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    &:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+      transform: translateX(5px);
+    }
+  }
+
+  &__info-text {
+    color: #00cc33;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  &__form-container {
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid #00ff41;
+    border-radius: 15px;
+    padding: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__form-label {
+    color: #00ff41;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+  }
+
+  &__form-required {
+    color: #ff4444;
+  }
+
+  &__form-input,
+  &__form-textarea {
+    padding: 1rem;
+    background: rgba(0, 40, 0, 0.6);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #00ff41;
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+      background: rgba(0, 40, 0, 0.8);
+    }
+  }
+
+  &__form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  &__form-button {
+    padding: 1rem 2rem;
+    background: #00ff41;
+    color: #001400;
+    border: 2px solid #00ff41;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover:not(:disabled) {
+      background: transparent;
+      color: #00ff41;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    &--loading {
+      background: transparent;
+      color: #00ff41;
+    }
+  }
+
+  &__form-button-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid #00ff41;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  &__footer {
+    text-align: center;
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+  }
+
+  &__footer-text {
+    p {
+      color: #00cc33;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+        color: #cccccc;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

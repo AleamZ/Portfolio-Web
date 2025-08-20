@@ -1,0 +1,185 @@
+.skills {
+  min-height: 100vh;
+  padding: 120px 2rem 4rem;
+  background: linear-gradient(135deg, #001400 0%, #002200 50%, #001400 100%);
+  position: relative;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .skills__title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-family: 'Courier New', monospace;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+
+      &-prefix {
+        color: #00ff41;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .skills__subtitle {
+      font-size: 1.25rem;
+      color: #00cc33;
+      font-family: 'Courier New', monospace;
+    }
+  }
+
+  &__content {
+    margin-bottom: 4rem;
+  }
+
+  &__category {
+    margin-bottom: 3rem;
+
+    &-title {
+      font-size: 2rem;
+      color: #00ff41;
+      margin-bottom: 2rem;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  &__skill-card {
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid #00ff41;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+      border-color: #00cc33;
+
+      &::before {
+        left: 100%;
+      }
+    }
+  }
+
+  &__skill-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__skill-icon {
+    font-size: 1.5rem;
+  }
+
+  &__skill-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+  }
+
+  &__skill-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 255, 65, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  &__skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff41, #00cc33);
+    border-radius: 4px;
+    transition: width 1.5s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+  }
+
+  &__skill-level {
+    color: #00cc33;
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+    text-align: right;
+  }
+
+  &__experience {
+    text-align: center;
+
+    &-title {
+      font-size: 2rem;
+      color: #00ff41;
+      margin-bottom: 2rem;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+  }
+
+  &__experience-item {
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #00ff41;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+    }
+
+    .skills__experience-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    h4 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    p {
+      color: #cccccc;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+  }
+}

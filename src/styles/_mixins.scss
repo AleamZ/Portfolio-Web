@@ -1,0 +1,291 @@
+// Flexbox Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+@mixin flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-column-center {
+    @include flex-column;
+    align-items: center;
+    justify-content: center;
+}
+
+// Grid Mixins
+@mixin grid-center {
+    display: grid;
+    place-items: center;
+}
+
+@mixin grid-columns($columns: 1, $gap: $spacing-md) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
+
+// Responsive Mixins
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (max-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin large-desktop {
+    @media (max-width: $large-desktop) {
+        @content;
+    }
+}
+
+// Animation Mixins
+@mixin fade-in-up($duration: 0.6s, $delay: 0s) {
+    animation: fadeInUp $duration ease-out $delay both;
+}
+
+@mixin fade-in-left($duration: 0.6s, $delay: 0s) {
+    animation: fadeInLeft $duration ease-out $delay both;
+}
+
+@mixin fade-in-right($duration: 0.6s, $delay: 0s) {
+    animation: fadeInRight $duration ease-out $delay both;
+}
+
+@mixin slide-in-up($duration: 0.6s, $delay: 0s) {
+    animation: slideInUp $duration ease-out $delay both;
+}
+
+@mixin slide-in-left($duration: 0.6s, $delay: 0s) {
+    animation: slideInLeft $duration ease-out $delay both;
+}
+
+@mixin slide-in-right($duration: 0.6s, $delay: 0s) {
+    animation: slideInRight $duration ease-out $delay both;
+}
+
+// Text Mixins
+@mixin text-gradient($gradient) {
+    background: $gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@mixin text-shadow($color: rgba(0, 0, 0, 0.5), $x: 2px, $y: 2px, $blur: 4px) {
+    text-shadow: $x $y $blur $color;
+}
+
+@mixin text-glow($color: $accent-green, $intensity: 0.5) {
+    text-shadow: 0 0 10px rgba($color, $intensity);
+}
+
+// Button Mixins
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-sm $spacing-lg;
+    border: none;
+    border-radius: $border-radius-md;
+    font-family: $font-family-primary;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all $transition-fast;
+    position: relative;
+    overflow: hidden;
+}
+
+@mixin button-primary {
+    @include button-base;
+    background: $accent-green;
+    color: $primary-dark;
+
+    &:hover {
+        background: $accent-green-light;
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+@mixin button-secondary {
+    @include button-base;
+    background: transparent;
+    color: $accent-green;
+    border: 2px solid $accent-green;
+
+    &:hover {
+        background: $accent-green;
+        color: $primary-dark;
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+// Card Mixins
+@mixin card-base {
+    background: $bg-card;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all $transition-normal;
+}
+
+@mixin card-hover {
+    @include card-base;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-xl;
+        border-color: rgba($accent-green, 0.3);
+    }
+}
+
+// Glass Morphism Mixins
+@mixin glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $border-radius-lg;
+}
+
+@mixin glass-dark {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $border-radius-lg;
+}
+
+// Glitch Effect Mixins
+@mixin glitch($color: $accent-green, $intensity: 0.1) {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+    }
+
+    &::before {
+        color: $color;
+        animation: glitch-1 0.3s infinite;
+        z-index: -1;
+    }
+
+    &::after {
+        color: complement($color);
+        animation: glitch-2 0.3s infinite;
+        z-index: -2;
+    }
+}
+
+// Hover Effects
+@mixin hover-lift($distance: 5px) {
+    transition: transform $transition-normal;
+
+    &:hover {
+        transform: translateY(-$distance);
+    }
+}
+
+@mixin hover-scale($scale: 1.05) {
+    transition: transform $transition-normal;
+
+    &:hover {
+        transform: scale($scale);
+    }
+}
+
+@mixin hover-glow($color: $accent-green, $intensity: 0.5) {
+    transition: box-shadow $transition-normal;
+
+    &:hover {
+        box-shadow: 0 0 20px rgba($color, $intensity);
+    }
+}
+
+// Utility Mixins
+@mixin truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    >* {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@mixin hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+// Glass Card Mixin
+@mixin glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+}
