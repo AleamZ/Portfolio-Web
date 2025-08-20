@@ -354,6 +354,76 @@ export const translations: Translations = {
     vi: 'Gửi tin nhắn',
     ko: '메시지 보내기'
   },
+  'contact.location.title': {
+    en: 'Location',
+    vi: 'Địa chỉ',
+    ko: '위치'
+  },
+  'contact.location.value': {
+    en: 'Thu Duc City',
+    vi: 'Thành phố Thủ Đức',
+    ko: '투득시'
+  },
+  'contact.phone.title': {
+    en: 'Phone',
+    vi: 'Điện thoại',
+    ko: '전화'
+  },
+  'contact.phone.call': {
+    en: 'Call Now',
+    vi: 'Gọi ngay',
+    ko: '지금 전화'
+  },
+  'contact.email.title': {
+    en: 'Email',
+    vi: 'Email',
+    ko: '이메일'
+  },
+  'contact.email.send': {
+    en: 'Send Email',
+    vi: 'Gửi email',
+    ko: '이메일 보내기'
+  },
+  'contact.linkedin.title': {
+    en: 'LinkedIn',
+    vi: 'LinkedIn',
+    ko: '링크드인'
+  },
+  'contact.linkedin.description': {
+    en: 'Connect with me professionally',
+    vi: 'Kết nối với tôi về mặt chuyên môn',
+    ko: '전문적으로 연결하기'
+  },
+  'contact.linkedin.view': {
+    en: 'View Profile',
+    vi: 'Xem hồ sơ',
+    ko: '프로필 보기'
+  },
+  'contact.github.title': {
+    en: 'GitHub',
+    vi: 'GitHub',
+    ko: '깃허브'
+  },
+  'contact.github.description': {
+    en: 'Check out my code and projects',
+    vi: 'Xem code và dự án của tôi',
+    ko: '내 코드와 프로젝트 확인하기'
+  },
+  'contact.github.visit': {
+    en: 'Visit GitHub',
+    vi: 'Truy cập GitHub',
+    ko: '깃허브 방문'
+  },
+  'contact.footer.message': {
+    en: "Let's build something amazing together! 🚀",
+    vi: 'Hãy cùng nhau xây dựng điều tuyệt vời! 🚀',
+    ko: '함께 멋진 것을 만들어봐요! 🚀'
+  },
+  'contact.footer.description': {
+    en: 'Fullstack Developer with 2+ years experience in React, Node.js, and ASP.NET.',
+    vi: 'Fullstack Developer với hơn 2 năm kinh nghiệm về React, Node.js và ASP.NET.',
+    ko: 'React, Node.js, ASP.NET에서 2년 이상의 경험을 가진 풀스택 개발자.'
+  },
 
   // Common
   'common.loading': {

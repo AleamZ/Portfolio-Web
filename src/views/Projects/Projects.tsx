@@ -155,7 +155,6 @@ const Projects: React.FC = () => {
     const DESKTOP_W = 1280;
     const DESKTOP_H = 720;
     const [loaded, setLoaded] = useState(false);
-    const [fallback, setFallback] = useState(false);
 
     useEffect(() => {
       if (!containerRef.current) return;
@@ -182,7 +181,7 @@ const Projects: React.FC = () => {
 
     return (
       <div className="projects__thumb-container" ref={containerRef}>
-        {url && !fallback ? (
+        {url && !loaded ? (
           <div
             className="projects__thumb-wrapper"
             style={{
