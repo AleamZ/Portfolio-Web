@@ -80,6 +80,21 @@ const Skills: React.FC = () => {
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
   };
 
+  // Auto-rotation effect
+  useEffect(() => {
+    if (viewMode !== '3D') return;
+    
+    const autoRotate = () => {
+      if (!dragState.current.isDragging) {
+        setRotation(prev => prev + 0.5); // Slow rotation speed
+      }
+    };
+
+    const interval = setInterval(autoRotate, 50); // Update every 50ms for smooth rotation
+
+    return () => clearInterval(interval);
+  }, [viewMode]);
+
   const getCategorySkills = (category: string) => {
     if (category === 'All') return skills;
     return skills.filter(skill => skill.category === category);
